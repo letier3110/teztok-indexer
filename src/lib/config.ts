@@ -9,7 +9,7 @@ const defaultConfig = {
   rebuildTokenConcurrency: 1,
   rebuildTokenPollInterval: 500,
   workerPollInterval: 500,
-  startBlock: 1365000,
+  startBlock: 2565000,
   maxBlocksPerIteration: 1000,
   tzktApiUrl: process.env.TZKT_API || 'https://api.mainnet.tzkt.io/v1',
   fetchMetadataTimeout: process.env.FETCH_METADATA_TIMEOUT ? parseInt(process.env.FETCH_METADATA_TIMEOUT, 10) : 40000,
