@@ -15,14 +15,11 @@ const CONTRACT_TO_BIGMAP: Record<string, number> = {
 export interface ObjktBidEnglishAuctionV2Event extends TokenEvent {
   type: typeof EVENT_TYPE_OBJKT_BID_ENGLISH_AUCTION_V2;
   seller_address: string;
-  artist_address: string;
   bidder_address: string;
-  reserve: string;
   start_time: string;
   end_time: string;
   current_price: string;
   extension_time: string;
-  royalties: string;
   price_increment: string;
   highest_bidder_address: string;
   auction_id: string;
@@ -38,15 +35,12 @@ const ObjktBidEnglishAuctionV2EventSchema: Describe<Omit<ObjktBidEnglishAuctionV
   token_id: string(),
   ophash: string(),
   seller_address: TezosAddress,
-  artist_address: TezosAddress,
   bidder_address: TezosAddress,
-  reserve: PgBigInt,
   start_time: IsoDateString,
   end_time: IsoDateString,
   current_price: PgBigInt,
   extension_time: PgBigInt,
   highest_bidder_address: TezosAddress,
-  royalties: PgBigInt,
   price_increment: PgBigInt,
   auction_id: PgBigInt,
   bid: PgBigInt,
@@ -71,14 +65,12 @@ const ObjktBidEnglishAuctionHandler: Handler<Transaction, ObjktBidEnglishAuction
     const bid = String(get(transaction, 'amount'));
     const diff = findDiff(transaction.diffs!, CONTRACT_TO_BIGMAP[contractAddress], 'auctions', ['update_key'], auctionId);
     const sellerAddress = get(diff, 'content.value.creator');
-    const artistAddress = get(diff, 'content.value.artist');
-    const fa2Address = get(diff, 'content.value.fa2');
-    const tokenId = get(diff, 'content.value.objkt_id');
-    const reserve = get(diff, 'content.value.reserve');
+    const fa2Address = get(diff, 'content.value.token.address');
+    const tokenId = get(diff, 'content.value.token.token_id');
     const startTime = get(diff, 'content.value.start_time');
     const endTime = get(diff, 'content.value.end_time');
     const extensionTime = get(diff, 'content.value.extension_time');
-    const royalties = get(diff, 'content.value.royalties');
+    // const shares = get(diff, 'content.value.shares'); // => {amount: string (num), recipient: string (tz)}[]
     const priceIncrement = get(diff, 'content.value.price_increment');
     const highestBidderAddress = get(diff, 'content.value.highest_bidder');
     const currentPrice = get(diff, 'content.value.current_price');
@@ -95,12 +87,9 @@ const ObjktBidEnglishAuctionHandler: Handler<Transaction, ObjktBidEnglishAuction
       token_id: tokenId,
       bidder_address: bidderAddress,
       seller_address: sellerAddress,
-      artist_address: artistAddress,
-      reserve,
       start_time: startTime,
       end_time: endTime,
       extension_time: extensionTime,
-      royalties,
       price_increment: priceIncrement,
       auction_id: auctionId,
       highest_bidder_address: highestBidderAddress,
