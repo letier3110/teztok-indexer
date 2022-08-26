@@ -37,6 +37,7 @@ import FxOfferAcceptV3Handler, { FxOfferAcceptV3Event } from './fx_offer_accept_
 import FxOfferCancelV3EventHandler, { FxOfferCancelV3Event } from './fx_offer_cancel_v3';
 import ObjktCreateEnglishAuctionHandler, { ObjktCreateEnglishAuctionEvent } from './objkt_create_english_auction';
 import ObjktBidEnglishAuctionHandler, { ObjktBidEnglishAuctionEvent } from './objkt_bid_english_auction';
+import ObjktBidEnglishAuctionV2Handler, { ObjktBidEnglishAuctionV2Event } from './objkt_bid_english_auction_v2';
 import ObjktCancelEnglishAuctionHandler, { ObjktCancelEnglishAuctionEvent } from './objkt_cancel_english_auction';
 import ObjktConcludeEnglishAuctionHandler, { ObjktConcludeEnglishAuctionEvent } from './objkt_conclude_english_auction';
 import ObjktCreateDutchAuctionHandler, { ObjktCreateDutchAuctionEvent } from './objkt_create_dutch_auction';
@@ -103,6 +104,7 @@ export const handlers = [
   ObjktRetractOfferHandler,
   ObjktCreateEnglishAuctionHandler,
   ObjktBidEnglishAuctionHandler,
+  ObjktBidEnglishAuctionV2Handler,
   ObjktCancelEnglishAuctionHandler,
   ObjktConcludeEnglishAuctionHandler,
   ObjktCreateDutchAuctionHandler,
@@ -201,6 +203,7 @@ export type AnyEvent =
   | FxOfferCancelV3Event
   | ObjktCreateEnglishAuctionEvent
   | ObjktBidEnglishAuctionEvent
+  | ObjktBidEnglishAuctionV2Event
   | ObjktCancelEnglishAuctionEvent
   | ObjktConcludeEnglishAuctionEvent
   | ObjktCreateDutchAuctionEvent
