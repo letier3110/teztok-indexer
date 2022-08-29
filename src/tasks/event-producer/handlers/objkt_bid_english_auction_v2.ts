@@ -59,7 +59,7 @@ const ObjktBidEnglishAuctionHandler: Handler<Transaction, ObjktBidEnglishAuction
   },
 
   exec: (transaction) => {
-    const auctionId = get(transaction, 'parameter.value');
+    const auctionId = get(transaction, 'parameter.auction_id');
     const contractAddress = get(transaction, 'target.address');
     const bidderAddress = get(transaction, 'sender.address');
     const bid = String(get(transaction, 'amount'));
