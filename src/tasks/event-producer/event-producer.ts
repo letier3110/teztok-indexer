@@ -85,7 +85,7 @@ export function transactionsToEvents(transactions: Transactions = [], handlers =
       events.push(...(isArray(event) ? event : [event]));
     } catch (err) {
       logger.error(
-        `handler "${processItem.handler.type}" failed to process transaction ${processItem.transaction.id}: ${(err as Error).message}`
+        `handler "${processItem.handler.type}" failed to process transaction block ${processItem.transaction.block}, hash ${processItem.transaction.hash}, id ${processItem.transaction.id}: ${(err as Error).message}`
       );
     }
   }
