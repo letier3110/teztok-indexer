@@ -9,7 +9,7 @@ import { OBJKT_CONTRACT_ENGLISH_AUCTION_V2 } from '../../../consts';
 export const EVENT_TYPE_OBJKT_BID_ENGLISH_AUCTION_V2 = 'OBJKT_BID_ENGLISH_AUCTION_V2';
 
 const CONTRACT_TO_BIGMAP: Record<string, number> = {
-  [EVENT_TYPE_OBJKT_BID_ENGLISH_AUCTION_V2]: 103262,
+  [OBJKT_CONTRACT_ENGLISH_AUCTION_V2]: 103262,
 };
 
 export interface ObjktBidEnglishAuctionV2Event extends TokenEvent {
@@ -59,10 +59,10 @@ const ObjktBidEnglishAuctionHandler: Handler<Transaction, ObjktBidEnglishAuction
   },
 
   exec: (transaction) => {
-    const auctionId = get(transaction, 'parameter.auction_id');
+    const auctionId = get(transaction, 'parameter.value.auction_id');
     const contractAddress = get(transaction, 'target.address');
     const bidderAddress = get(transaction, 'sender.address');
-    const bid = String(get(transaction, 'amount'));
+    const bid = get(transaction, 'parameter.value.amount');
     const diff = findDiff(transaction.diffs!, CONTRACT_TO_BIGMAP[contractAddress], 'auctions', ['update_key'], auctionId);
     const sellerAddress = get(diff, 'content.value.creator');
     const fa2Address = get(diff, 'content.value.token.address');
